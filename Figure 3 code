@@ -1,0 +1,17 @@
+library(ggplot2)
+data<-read.table("summary of LOH events.txt", header=TRUE, sep="\t")
+means_events<-aggregate(x = data$Num_events, by = list(data$Env,data$Geno), FUN = "mean")
+st.err <- function(x) {
+    sd(x)/sqrt(length(x))
+     }
+ses_events<-aggregate(x = data$Num_events, by = list(data$Env,data$Geno), FUN = "st.err")
+means_events$se <-ses_events$x
+means_sum<-aggregate(x = data$Sum, by = list(data$Env,data$Geno), FUN = "mean")
+ses_sum<-aggregate(x = data$Sum, by = list(data$Env,data$Geno), FUN = "st.err")
+means_sum$se <- ses_sum$x
+p <- ggplot(means_events, aes(Group.1, x)) + geom_bar(aes(fill = Group.2), position = position_dodge(width=0.75), stat="identity",width=0.75) +
+theme_classic() + scale_x_discrete(limits=c('Beer','Cana','NaCl','YPD','Wine','Larvae')) + scale_fill_grey()
+p + labs(fill = "Genotype") + ylab("No. events") +xlab("Environment") + geom_errorbar(data=means_events, mapping=aes(fill = Group.2, ymin=x-se, ymax=x+se), width=0.2, position = position_dodge(width=0.75))
+p <- ggplot(means_sum, aes(Group.1, x)) + geom_bar(aes(fill = Group.2), position = position_dodge(width=0.75), stat="identity",width=0.75) +
+theme_classic() + scale_x_discrete(limits=c('Beer','Cana','NaCl','YPD','Wine','Larvae')) + scale_fill_grey()
+p + labs(fill = "Genotype") + ylab("No. events") +xlab("Environment") + geom_errorbar(data=means_sum, mapping=aes(fill = Group.2, ymin=x-se, ymax=x+se), width=0.2, position = position_dodge(width=0.75))
