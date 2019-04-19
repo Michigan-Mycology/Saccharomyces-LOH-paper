@@ -1,0 +1,4 @@
+data<-read.table("LOH_lengths_all.txt", sep="\t")
+logdata<-log(data, 10)
+hist(logdata$V1)
+hist(logdata$V1, main=NULL, breaks=25, xlim=c(0,7), xlab="LOH length (bp)", ylab="Count")
