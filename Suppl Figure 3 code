@@ -1,0 +1,30 @@
+library (ggplot2)
+data<-read.table("combined_ratio_files_standardized_long.txt", header=TRUE)
+
+pdf("CNV_fig_with_legend.pdf", height = 6.6, width = 9.9)
+data<-read.table("combined_ratio_files_standardized_long.txt", header=TRUE)
+data$Strain <- factor(data$Strain, levels = c("AB-100-2","AB-100-3","AB-100-4","AB-100-6","AB-100-7","BB-100-3-R","BB-100-5","BB-100-6","BB-100-7","BB-100-8","AC-100-1","AC-100-2","AC-100-3","AC-100-4","AC-100-5","AC-100-6","BC-100-3","BC-100-4","BC-100-5","BC-100-6","BC-100-7","BC-100-8","AN-100-1","AN-100-3","AN-100-4","AN-100-5","AN-100-7","BN-100-2","BN-100-3","BN-100-4","BN-100-5","BN-100-6","BN-100-7","AW-100-1","AW-100-2","AW-100-3","AW-100-4","AW-100-6","AY-100-1","AY-100-2","AY-100-3","AY-100-4","AY-100-5","AY-100-6","BY-100-6","BY-100-7","L177_R01","L187_R02C1","L189_R03C1","L191_R04C1","L193_R05C1","L195_R06C1","L197_R07C1","L199_R08C1"))
+p <- ggplot(data, aes(Start, Ratio)) + geom_point(size=0.05, aes(colour = cut(CopyNum, c(-Inf, 0.75, 1.25, Inf)))) +
+scale_color_manual(name = "Ploidy", values = c("(-Inf,0.75]" = "red", "(0.75,1.25]" = "black", "(1.25, Inf]" = "green"),
+labels = c("<= 0.75", "0.75 < ratio <= 1.25", "> 1.25")) + 
+ xlab('Position') + ylab('Coverage Ratio')
+p + facet_grid(vars(Strain), vars(Chromosome), scales='free_x',space='free_x') + theme(panel.spacing=unit(0, "lines")) +
+scale_x_continuous(breaks = c(seq(0, 2000000, by = 200000))) + theme(axis.text.x=element_blank(), axis.text.y=element_blank()) +
+theme(axis.ticks = element_line(size = 0.2), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+panel.background = element_blank(), strip.background = element_blank()) + 
+scale_y_continuous(limits= c(0.5, 2.0), breaks = c(1.0)) + theme(strip.text.y = element_text(angle=0, size=6)) 
+dev.off()
+
+pdf("CNV_fig_without_legend.pdf", height = 6.6, width = 9.9)
+data<-read.table("combined_ratio_files_standardized_long.txt", header=TRUE)
+data$Strain <- factor(data$Strain, levels = c("AB-100-2","AB-100-3","AB-100-4","AB-100-6","AB-100-7","BB-100-3-R","BB-100-5","BB-100-6","BB-100-7","BB-100-8","AC-100-1","AC-100-2","AC-100-3","AC-100-4","AC-100-5","AC-100-6","BC-100-3","BC-100-4","BC-100-5","BC-100-6","BC-100-7","BC-100-8","AN-100-1","AN-100-3","AN-100-4","AN-100-5","AN-100-7","BN-100-2","BN-100-3","BN-100-4","BN-100-5","BN-100-6","BN-100-7","AW-100-1","AW-100-2","AW-100-3","AW-100-4","AW-100-6","AY-100-1","AY-100-2","AY-100-3","AY-100-4","AY-100-5","AY-100-6","BY-100-6","BY-100-7","L177_R01","L187_R02C1","L189_R03C1","L191_R04C1","L193_R05C1","L195_R06C1","L197_R07C1","L199_R08C1"))
+p <- ggplot(data, aes(Start, Ratio)) + geom_point(size=0.05, aes(colour = cut(CopyNum, c(-Inf, 0.75, 1.25, Inf)))) +
+scale_color_manual(name = "Ploidy", values = c("(-Inf,0.75]" = "red", "(0.75,1.25]" = "black", "(1.25, Inf]" = "green"),
+labels = c("<= 0.75", "0.75 < ratio <= 1.25", "> 1.25")) + 
+ xlab('Position') + ylab('Coverage Ratio')
+p + facet_grid(vars(Strain), vars(Chromosome), scales='free_x',space='free_x') + theme(panel.spacing=unit(0, "lines")) +
+scale_x_continuous(breaks = c(seq(0, 2000000, by = 200000))) + theme(axis.text.x=element_blank(), axis.text.y=element_blank()) +
+theme(axis.ticks = element_line(size = 0.2), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+panel.background = element_blank(), strip.background = element_blank()) + 
+scale_y_continuous(limits= c(0.5, 2.0), breaks = c(1.0)) + theme(strip.text.y = element_text(angle=0, size=6)) + theme(legend.position="none")
+dev.off()
