@@ -1,0 +1,26 @@
+library(ggplot2)
+pdf("rel_fitness_doubling.pdf", height = 9, width = 5)
+data<-read.table("means_rel_fitness.txt", header=TRUE)
+p <- ggplot(data, aes(Environment, Rel.fitness.DT)) 
+p <- p + geom_boxplot(aes(fill=Background)) + scale_x_discrete(limits=c("Beer", "Cana", "NaCl", "YPD", "Wine")) + scale_fill_manual(breaks = c("SSP272", "SP309"), values=c("white", "grey"))
+p <- p + geom_point(aes(y=Rel.fitness.DT, group=Background), position = position_dodge(width=0.75)) +
+xlab("Environment") + ylab("Rel. Fitness (Doubling time)") + theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + geom_hline(yintercept = 1, linetype = "dashed")
+p
+dev.off()
+pdf("rel_fitness_EOG.pdf", height = 9, width = 5)
+p <- ggplot(data, aes(Environment, Rel.Fitness.EOG)) 
+p <- p + geom_boxplot(aes(fill=Background)) + scale_x_discrete(limits=c("Beer", "Cana", "NaCl", "YPD", "Wine")) + scale_fill_manual(breaks = c("SSP272", "SP309"), values=c("white", "grey"))
+p <- p + geom_point(aes(y=Rel.Fitness.EOG, group=Background), position = position_dodge(width=0.75)) +
+xlab("Environment") + ylab("Rel. Fitness (EOG)") + theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + geom_hline(yintercept = 1, linetype = "dashed")
+p
+dev.off()
+pdf("rel_fitness_Comp.pdf", height = 9, width = 5)
+p <- ggplot(data, aes(Environment, Rel.Fitness.Comp)) 
+p <- p + geom_boxplot(aes(fill=Background)) + scale_x_discrete(limits=c("Beer", "Cana", "NaCl", "YPD", "Wine")) + scale_fill_manual(breaks = c("SSP272", "SP309"), values=c("white", "grey"))
+p <- p + geom_point(aes(y=Rel.Fitness.Comp, group=Background), position = position_dodge(width=0.75)) +
+xlab("Environment") + ylab("Rel. Fitness (Comp)") + theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + geom_hline(yintercept = 1, linetype = "dashed")
+p
+dev.off()
