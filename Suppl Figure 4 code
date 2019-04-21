@@ -1,0 +1,162 @@
+library(RColorBrewer)
+data<-read.table("LOH mutation events and fitness.txt", header=TRUE)
+dColors <- with(data, data.frame(Env = levels(Env), color = I(brewer.pal(nlevels(Env), name = 'Set1'))))  
+dColors$color[6]<-"grey"
+attach(data)
+par(mfrow = c(3, 3))
+par(mai=c(0,0.2,0.2,0.1))
+plot (log(Num_events), Rel.fitness.DT, col = dColors$color[match(data$Env, dColors$Env)], pch=19, xaxt="n", cex=1.2)
+axis(1, labels=F)
+beerdata = subset(data, Env=="Beer")
+logdata <-log(beerdata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(beerdata$Rel.fitness.DT ~ logdata), col="#E41A1C", lty=3)
+canadata = subset(data, Env=="Cana")
+logdata <-log(canadata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(canadata$Rel.fitness.DT ~ logdata), col="#377EB8", lty=3)
+NaCldata = subset(data, Env=="NaCl")
+logdata <-log(NaCldata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(NaCldata$Rel.fitness.DT ~ logdata), col="#984EA3")
+YPDdata = subset(data, Env=="YPD")
+logdata <-log(YPDdata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(YPDdata$Rel.fitness.DT ~ logdata), col="grey", lty=3)
+logalldata <-log(data$Num_events)
+logalldata[!is.finite(logalldata)] <- 0
+abline(lm(data$Rel.fitness.DT ~ logalldata), col="black")
+
+plot (log(Sum), Rel.fitness.DT, col = dColors$color[match(data$Env, dColors$Env)], pch=19, xaxt="n", yaxt="n")
+axis(1, labels=F)
+axis(2, labels=F)
+logdata <-log(beerdata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(beerdata$Rel.fitness.DT ~ logdata), col="#E41A1C")
+logdata <-log(canadata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(canadata$Rel.fitness.DT ~ logdata), col="#377EB8", lty=3)
+logdata <-log(NaCldata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(NaCldata$Rel.fitness.DT ~ logdata), col="#984EA3", lty=3)
+logdata <-log(YPDdata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(YPDdata$Rel.fitness.DT ~ logdata), col="grey", lty=3)
+logalldata <-log(data$Sum)
+logalldata[!is.finite(logalldata)] <- 0
+abline(lm(data$Rel.fitness.DT ~ logalldata), col="black")
+
+plot (Mutations, Rel.fitness.DT, col = dColors$color[match(data$Env, dColors$Env)], pch=19, xaxt="n", yaxt="n")
+axis(1, labels=F)
+axis(2, labels=F)
+abline(lm(beerdata$Rel.fitness.DT ~ beerdata$Mutations), col="#E41A1C", lty=3)
+abline(lm(canadata$Rel.fitness.DT ~ canadata$Mutations), col="#377EB8", lty=3)
+abline(lm(NaCldata$Rel.fitness.DT ~ NaCldata$Mutations), col="#984EA3", lty=3)
+abline(lm(YPDdata$Rel.fitness.DT ~ YPDdata$Mutations), col="grey", lty=3)
+abline(lm(data$Rel.fitness.DT ~ Mutations), col="black", lty=3)
+
+plot (log(Num_events), Rel.fitness.EOG, col = dColors$color[match(data$Env, dColors$Env)], pch=19, xaxt="n")
+axis(1, labels=F)
+logdata <-log(beerdata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(beerdata$Rel.fitness.EOG ~ logdata), col="#E41A1C")
+logdata <-log(canadata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(canadata$Rel.fitness.EOG ~ logdata), col="#377EB8", lty=3)
+logdata <-log(NaCldata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(NaCldata$Rel.fitness.EOG ~ logdata), col="#984EA3", lty=3)
+logdata <-log(YPDdata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(YPDdata$Rel.fitness.EOG ~ logdata), col="grey", lty=3)
+logalldata <-log(data$Num_events)
+logalldata[!is.finite(logalldata)] <- 0
+abline(lm(data$Rel.fitness.EOG ~ logalldata), col="black")
+
+plot (log(Sum), Rel.fitness.EOG, col = dColors$color[match(data$Env, dColors$Env)], pch=19, xaxt="n", yaxt="n")
+axis(1, labels=F)
+axis(2, labels=F)
+logdata <-log(beerdata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(beerdata$Rel.fitness.EOG ~ logdata), col="#E41A1C")
+logdata <-log(canadata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(canadata$Rel.fitness.EOG ~ logdata), col="#377EB8", lty=3)
+logdata <-log(NaCldata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(NaCldata$Rel.fitness.EOG ~ logdata), col="#984EA3", lty=3)
+logdata <-log(YPDdata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(YPDdata$Rel.fitness.EOG ~ logdata), col="grey", lty=3)
+logalldata <-log(data$Sum)
+logalldata[!is.finite(logalldata)] <- 0
+abline(lm(data$Rel.fitness.DT ~ logalldata), col="black")
+
+plot (Mutations, Rel.fitness.EOG, col = dColors$color[match(data$Env, dColors$Env)], pch=19, xaxt="n", yaxt="n")
+axis(1, labels=F)
+axis(2, labels=F)
+abline(lm(beerdata$Rel.fitness.EOG ~ beerdata$Mutations), col="#E41A1C", lty=3)
+abline(lm(canadata$Rel.fitness.EOG ~ canadata$Mutations), col="#377EB8", lty=3)
+abline(lm(NaCldata$Rel.fitness.EOG ~ NaCldata$Mutations), col="#984EA3", lty=3)
+abline(lm(YPDdata$Rel.fitness.EOG ~ YPDdata$Mutations), col="grey", lty=3)
+abline(lm(data$Rel.fitness.EOG ~ Mutations), col="black", lty=3)
+
+par(mai=c(0.2,0.2,0.2,0.1))
+plot (log(Num_events), Rel.fitness.Comp, col = dColors$color[match(data$Env, dColors$Env)], pch=19)
+logdata <-log(beerdata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(beerdata$Rel.fitness.Comp ~ logdata), col="#E41A1C")
+logdata <-log(canadata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(canadata$Rel.fitness.Comp ~ logdata), col="#377EB8", lty=3)
+logdata <-log(NaCldata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(NaCldata$Rel.fitness.Comp ~ logdata), col="#984EA3", lty=3)
+logdata <-log(YPDdata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(YPDdata$Rel.fitness.Comp ~ logdata), col="grey", lty=3)
+Winedata = subset(data, Env=="Wine")
+logdata <-log(Winedata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(Winedata$Rel.fitness.Comp ~ logdata), col="#FF7F00", lty=3)
+Larvaedata = subset(data, Env=="Larvae")
+logdata <-log(Larvaedata$Num_events)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(Larvaedata$Rel.fitness.Comp ~ logdata), col="#4DAF4A", lty=3)
+logalldata <-log(data$Num_events)
+logalldata[!is.finite(logalldata)] <- 0
+abline(lm(data$Rel.fitness.Comp ~ logalldata), col="black", lty=3)
+
+plot (log(Sum), Rel.fitness.Comp, col = dColors$color[match(data$Env, dColors$Env)], pch=19, yaxt="n")
+axis(2, labels=F)
+logdata <-log(beerdata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(beerdata$Rel.fitness.Comp ~ logdata), col="#E41A1C", lty=3)
+logdata <-log(canadata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(canadata$Rel.fitness.Comp ~ logdata), col="#377EB8", lty=3)
+logdata <-log(NaCldata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(NaCldata$Rel.fitness.Comp ~ logdata), col="#984EA3", lty=3)
+logdata <-log(YPDdata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(YPDdata$Rel.fitness.Comp ~ logdata), col="grey", lty=3)
+logdata <-log(Winedata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(Winedata$Rel.fitness.Comp ~ logdata), col="#FF7F00", lty=3)
+logdata <-log(Larvaedata$Sum)
+logdata[!is.finite(logdata)] <- 0
+abline(lm(Larvaedata$Rel.fitness.Comp ~ logdata), col="#4DAF4A", lty=3)
+logalldata <-log(data$Sum)
+logalldata[!is.finite(logalldata)] <- 0
+abline(lm(data$Rel.fitness.Comp ~ logalldata), col="black")
+
+plot (Mutations, Rel.fitness.Comp, col = dColors$color[match(data$Env, dColors$Env)], pch=19, yaxt="n")
+axis(2, labels=F)
+abline(lm(beerdata$Rel.fitness.Comp ~ beerdata$Mutations), col="#E41A1C", lty=3)
+abline(lm(canadata$Rel.fitness.Comp ~ canadata$Mutations), col="#377EB8")
+abline(lm(NaCldata$Rel.fitness.Comp ~ NaCldata$Mutations), col="#984EA3", lty=3)
+abline(lm(YPDdata$Rel.fitness.Comp ~ YPDdata$Mutations), col="grey")
+abline(lm(Winedata$Rel.fitness.Comp ~ Winedata$Mutations), col="#FF7F00", lty=3)
+abline(lm(Larvaedata$Rel.fitness.Comp ~ Larvaedata$Mutations), col="#4DAF4A", lty=3)
+abline(lm(data$Rel.fitness.Comp ~ Mutations), col="black", lty=3)
