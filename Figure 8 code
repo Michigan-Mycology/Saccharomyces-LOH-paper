@@ -1,0 +1,18 @@
+library(gridExtra)
+library(ggplot2)
+
+data<-read.table("recomb_type_by_background.txt", header=TRUE)
+
+HHLdata <-subset(data, Strain=='HHL')
+
+p <- ggplot(HHLdata, aes(x=factor(Type), y=Count)) + 
+  geom_bar(stat="identity", color="red", position=position_dodge(), fill = "red") 
+p <- p+labs(x="LOH Type", y="Count")+ theme_classic() 
+
+LHLdata <-subset(data, Strain=='LHL')
+
+q <- ggplot(LHLdata, aes(x=factor(Type), y=Count)) + 
+  geom_bar(stat="identity", color="blue", position=position_dodge(), fill = "blue")
+q <- q+labs(x="LOH Type", y="Count")+ theme_classic() 
+
+grid.arrange(p,q, nrow=2)
