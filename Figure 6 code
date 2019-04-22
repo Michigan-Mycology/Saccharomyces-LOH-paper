@@ -1,0 +1,7 @@
+data<-read.table("sac.LOH1.snps.only.qualfiltered.pruned.rearranged.flattened.averaged.long.combined_500bp_ChrIV.txt",header=TRUE)
+stripchart( data$Position ~ Strain, data=data, method="stack", subset = Genotype == "B", col="purple", pch=124, xlab="Position (bp)", cex=1.5, yaxt="n", xaxt="n")
+axis(1, at = seq(445000, 585000, by = 10000))
+labels<-c("AN-100-1", "AN-100-3", "AN-100-4", "AN-100-5", "AN-100-7", "SSP24", "SSP253", "SSP309", "BN-100-2", "BN-100-3", "BN-100-4", "BN-100-5", "BN-100-6", "BN-100-7", "SSP245", "SSP264", "SSP272")
+axis(2,las=2, labels=labels, at= seq(1,17,by=1), cex.axis=0.7)
+stripchart( data$Position ~ Strain, data=data, method="stack", subset = Genotype == "A", col="red", add=T, pch=124, cex=1.5)
+stripchart( data$Position ~ Strain, data=data, method="stack", subset = Genotype == "C", col="blue", add=T, pch=124, cex=1.5)
