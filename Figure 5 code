@@ -1,0 +1,9 @@
+data<-read.table("sac.LOH1.snps.only.qualfiltered.pruned.rearranged.flattened.averaged.long.combined_500bp_ChrV.txt",header=TRUE)
+stripchart( data$Position ~ Strain, data=data, method="stack", subset = Genotype == "B", col="purple", pch=124, xlab="Position (bp)", cex=1.5, yaxt="n", xaxp  = c(0, 120000, 12))
+labels<-c("AC-100-1", "AC-100-2", "AC-100-3", "AC-100-4", "AC-100-5", "AC-100-6", "SSP24", "SSP253", "SSP309", "BC-100-3", "BC-100-4", "BC-100-5", "BC-100-6", "BC-100-7", "BC-100-8", "SSP245", "SSP264", "SSP272")
+axis(2,las=2, labels=labels, at= seq(1,18,by=1), cex.axis=0.7)
+stripchart( data$Position ~ Strain, data=data, method="stack", subset = Genotype == "A", col="red", add=T, pch=124, cex=1.5)
+stripchart( data$Position ~ Strain, data=data, method="stack", subset = Genotype == "C", col="blue", add=T, pch=124, cex=1.5)
+# 32580 is the midpoint of CAN1
+# add 45 bp because the scale is shifted
+abline (v=32625)
