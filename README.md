@@ -1,6 +1,6 @@
 # Saccharomyces-LOH-paper
 
-Repository for James et al. (in prep), "Parallel loss of heterozygosity drives adaptation in evolving yeast populations"
+Repository for James et al. (in prep), "High-resolution mapping of loss of heterozygosity in evolved yeast clones under divergent selection"
 
 Unless specified, code for Figures is written in R.
 
