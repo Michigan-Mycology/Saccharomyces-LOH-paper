@@ -4,4 +4,4 @@ Repository for James et al. (in prep), "High-resolution mapping of loss of heter
 
 Unless specified, code for Figures is written in R.
 
-Raw sequence data is stored in NCBI SRA archive under BioProject: TBD under the accession numbers: TBD
+Raw sequence data is stored in NCBI SRA archive under BioProject: TBD under the accession numbers: SRR8981718-SRR8981795
