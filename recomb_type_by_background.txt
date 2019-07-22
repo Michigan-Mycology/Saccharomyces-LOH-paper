@@ -1,0 +1,17 @@
+Strain	Type	Count
+HHL	1	52
+HHL	2	0
+HHL	3	0
+HHL	4	29
+HHL	5	4
+HHL	6	7
+HHL	Other	3
+HHL	Deletion	5
+LHL	1	33
+LHL	2	1
+LHL	3	1
+LHL	4	24
+LHL	5	2
+LHL	6	5
+LHL	Other	3
+LHL	Deletion	1
